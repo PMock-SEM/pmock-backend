@@ -30,3 +30,5 @@ let coachSchema = new Schema({
     	updatedAt: 'updatedTime' 
     }, 
 });
+
+export default mongoose.model('Coach', CoachSchema);
