@@ -32,13 +32,6 @@ UserSchema.pre('save', function (next) {
   let user = this;
   let salt = BCrypt.genSaltSync(SALT_FACTOR);
 
-  if (this.isNew) {
-    this.createdAt = Date.now();
-    this.updatedAt = Date.now();
-  } else {
-    this.updatedAt = Date.now();
-  }
-
   if (!user.isModified('password')) {
     return next();
   }
