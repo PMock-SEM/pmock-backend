@@ -9,6 +9,23 @@
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "express": "~4.16.1",
-    "morgan": "~1.9.1"
-  }
+    "mongodb": "^3.3.3",
+    "mongoose": "^5.7.5",
+    "morgan": "~1.9.1",
+    "node-fetch": "^2.6.0"
+  },
+  "main": "app.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PMock-SEM/pmock-backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PMock-SEM/pmock-backend/issues"
+  },
+  "homepage": "https://github.com/PMock-SEM/pmock-backend#readme",
+  "description": ""
 }
