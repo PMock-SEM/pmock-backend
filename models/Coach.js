@@ -25,10 +25,8 @@ let coachSchema = new Schema({
   linkedAccessToken: String,
   rating: Number,
 }, { 
-	timestamps: { 
-		createdAt: 'createdTime' 
-	}, 
-    { 
+    timestamps: { 
+        createdAt: 'createdTime',
     	updatedAt: 'updatedTime' 
     }, 
-})
+});
