@@ -1,7 +1,23 @@
 const mongoose = require('mongoose');
 const User = mongoose.model('User');
+const jwt = require('jsonwebtoken');
+const config = require('../config');
 
 class UserService {
+  static async authenticateUser(userParams) {
+    try {
+      const user = await User.findOne({ email: userParams.email });
+      if (user.comparePasswordSync(userParams.password)) {
+        const token = await jwt.sign({ _id: user._id }, config.SECRET_KEY, { expiresIn: '5h' });
+        return token;
+      }
+      return "";
+    } catch (exception) {
+      console.log(exception);
+      throw Error('Error while signing in user');
+    }
+  }
+
   static async addUser(userParams) {
     try {
       const user = await new User(userParams).save();
@@ -16,6 +32,7 @@ class UserService {
       const user = await User.findByIdAndUpdate(mongoose.Types.ObjectId(userId), userParams, { new: true });
       return user;
     } catch (exception) {
+      console.log(exception);
       throw Error('Error while updating user');
     }
   }
