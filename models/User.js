@@ -1,8 +1,8 @@
-import mongoose, { Schema } from 'mongoose';
+const mongoose = require('mongoose');
 const BCrypt = require('bcryptjs');
 const SALT_FACTOR = 10;
 
-const UserSchema = new Schema({
+const UserSchema = new mongoose.Schema({
   firstName: String,
   lastName: String,
   email: {
@@ -11,14 +11,6 @@ const UserSchema = new Schema({
     unique: true
   },
   password: String,
-  createdAt: {
-    type: Date,
-    default: Date.now
-  },
-  updatedAt: {
-    type: Date,
-    default: Date.now
-  },
   avatarLink: String,
   linkedAcessToken: String
 }, {
@@ -26,6 +18,10 @@ const UserSchema = new Schema({
     createdAt: 'createdTime',
     updatedAt: 'updatedTime'
   }
+});
+
+UserSchema.virtual('fullName').get(() => {
+  return this.firstName + ' ' + this.lastName;
 });
 
 UserSchema.pre('save', function (next) {
@@ -55,4 +51,5 @@ UserSchema.methods = {
   }
 }
 
-export default mongoose.model('User', UserSchema);
+const User = mongoose.model('User', UserSchema, 'users');
+module.exports = User;

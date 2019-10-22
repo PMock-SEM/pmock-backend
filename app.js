@@ -1,7 +1,22 @@
 var express = require('express');
 var path = require('path');
+const config = require('./config');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const mongoose = require('mongoose');
+const ObjectId = mongoose.Types.ObjectId;
+
+mongoose.connect(config.MONGO_CONNECTION);
+
+const db = mongoose.connection;
+
+db.on('connected', () => {
+  console.log('Connected to mongodb');
+})
+
+db.on('error', (err) => {
+  console.log(err);
+})
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
