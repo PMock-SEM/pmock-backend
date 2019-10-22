@@ -31,7 +31,6 @@ class UserService {
       const user = await User.findByIdAndUpdate(mongoose.Types.ObjectId(userId), userParams, { new: true });
       return user;
     } catch (exception) {
-      console.log(exception);
       throw Error('Error while updating user');
     }
   }
