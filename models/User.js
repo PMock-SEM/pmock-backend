@@ -28,6 +28,7 @@ UserSchema.virtual('fullName').get(() => {
 });
 
 UserSchema.pre('save', function (next) {
+  console.log("------------------");
   let user = this;
   let salt = BCrypt.genSaltSync(SALT_FACTOR);
 
