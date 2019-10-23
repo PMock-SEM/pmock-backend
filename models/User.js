@@ -10,7 +10,10 @@ const UserSchema = new mongoose.Schema({
     required: true,
     unique: true
   },
-  password: String,
+  password: {
+    type: String,
+    requied: true
+  },
   avatarLink: String,
   linkedAcessToken: String
 }, {
@@ -39,9 +42,24 @@ UserSchema.pre('save', function (next) {
   });
 });
 
+UserSchema.pre("findOneAndUpdate", function (next) {
+  const password = this.getUpdate().password;
+  if (!password) {
+    return next();
+  }
+  try {
+    const salt = BCrypt.genSaltSync(SALT_FACTOR);
+    const hash = BCrypt.hashSync(password, salt);
+    this.getUpdate().password = hash;
+    next();
+  } catch (error) {
+    return next(error);
+  }
+});
+
 UserSchema.methods = {
   comparePassword: function (password, cb) {
-    bcrypt.compare(password, this.password, function (err, isMatch) {
+    BCrypt.compare(password, this.password, function (err, isMatch) {
       if (err) return cb(err);
       cb(null, isMatch);
     });

@@ -3,6 +3,28 @@ const UserService = require('../services/UserService');
 const User = require('../models/User');
 
 class UserController {
+  static async signIn(req, res, next) {
+    try {
+      const userParams = {
+        email: req.body.email,
+        password: req.body.password
+      };
+
+      const token = await UserService.authenticateUser(userParams);
+      if (!token) {
+        return res.status(401).json({
+          message: 'Email and password does not match'
+        });
+      }
+      return res.status(200).json({
+        data: token,
+        message: 'Success signing in user'
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
   static async signUp(req, res, next) {
     try {
       const userParams = {

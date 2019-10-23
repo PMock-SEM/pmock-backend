@@ -7,6 +7,8 @@ router.get('/', UserController.getUsers);
 
 router.get('/:id', UserController.getUserById);
 
+router.post('/login', UserController.signIn);
+
 router.post('/', UserController.signUp);
 
 router.patch('/:id', UserController.updateUserById);
