@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 
 /* GET feedback listing. */
-router.get('/', FeedbackController.giveFeedback());
+router.get('/', FeedbackController.getFeedback());
 
 router.get('/:id', FeedbackController.getFeedbackById());
 
