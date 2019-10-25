@@ -3,9 +3,9 @@ const express = require('express');
 const router = express.Router();
 
 /* GET feedback listing. */
-router.get('/', FeedbackController.getFeedback());
+router.get('/', FeedbackController.getFeedback);
 
-router.get('/:id', FeedbackController.getFeedbackById());
+router.get('/:id', FeedbackController.getFeedbackById);
 
 router.post('/', FeedbackController.giveFeedback);
 

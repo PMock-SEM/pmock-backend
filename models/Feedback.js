@@ -7,12 +7,12 @@ const FeedbackSchema = new mongoose.Schema({
             unique: true
         },
         coachId: {
-            type: Schema.Types.ObjectId,
+            type: mongoose.Schema.Types.ObjectId,
             ref: 'Coach',
             required: true
         },
         videoId: {
-            type: Schema.Types.ObjectId,
+            type: mongoose.Schema.Types.ObjectId,
             ref: 'Video',
             required: true
         },
