@@ -17,7 +17,7 @@ class UserController {
         });
       }
       return res.status(200).json({
-        data: token,
+        token: token,
         message: 'Success signing in user'
       });
     } catch (e) {
