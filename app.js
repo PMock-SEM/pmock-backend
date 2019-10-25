@@ -20,6 +20,7 @@ db.on('error', (err) => {
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var videoRouter = require('./routes/videos')
 
 var app = express();
 
