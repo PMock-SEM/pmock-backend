@@ -11,13 +11,18 @@ const FeedbackSchema = new mongoose.Schema({
             ref: 'Coach',
             required: true
         },
+        videoId: {
+            type: Schema.Types.ObjectId,
+            ref: 'Video',
+            required: true
+        },
         content: String
-    }, {
-    timestamps: {
-        createdAt: 'createdTime',
-        updatedAt: 'updatedTime'
-    }
-});
+        }, {
+        timestamps: {
+            createdAt: 'createdTime',
+            updatedAt: 'updatedTime'
+        }
+        });
 
 FeedbackSchema.pre('save', function (next) {
     let feedback = this;
