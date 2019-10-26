@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 
 /* GET users listing. */
-router.get('/', videoController.getVideos);
+router.get('/getVideos', videoController.getVideosById);
 
 router.post('/upload', videoController.uploadVideo);
 
