@@ -7,6 +7,8 @@ router.get('/', UserController.getUsers);
 
 router.get('/:id', UserController.getUserById);
 
+router.get('/:id/videos', UserController.getVideosByUserId);
+
 router.post('/login', UserController.signIn);
 
 router.post('/', UserController.signUp);

@@ -27,6 +27,13 @@ UserSchema.virtual('fullName').get(() => {
   return this.firstName + ' ' + this.lastName;
 });
 
+UserSchema.virtual('videos', {
+  ref: 'Video',
+  localField: '_id',
+  foreignField: 'userId',
+  justOne: false
+})
+
 UserSchema.pre('save', function (next) {
   let user = this;
   let salt = BCrypt.genSaltSync(SALT_FACTOR);
