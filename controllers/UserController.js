@@ -101,6 +101,19 @@ class UserController {
     }
   }
 
+  static async getVideosByUserId(req, res) {
+    const id = req.params.id;
+    try {
+      const videos = await UserService.getVideosByUserId(id);
+      return res.status(200).json({
+        data: videos,
+        message: 'Success getting videos by user id'
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
 
 }
 

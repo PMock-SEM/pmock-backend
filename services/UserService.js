@@ -60,6 +60,17 @@ class UserService {
       throw Error('Error while removing user by id');
     }
   }
+
+  static async getVideosByUserId(id) {
+    try {
+      let videos = await User.findById(id).populate('videos').exec().then(user => {
+        return user.videos;
+      });
+      return videos;
+    } catch (exception) {
+      throw Error('Error while getting videos by user id');
+    }
+  }
 }
 
 module.exports = UserService;

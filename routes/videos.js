@@ -2,9 +2,14 @@ const videoController = require('../controllers/VideoController');
 const express = require('express');
 const router = express.Router();
 
-/* GET users listing. */
+router.post('/', videoController.addVideo);
 
-router.post('/upload', videoController.uploadVideo);
+router.get('/:id', videoController.getVideoById);
 
+router.get('/', videoController.getVideos);
+
+router.delete('/:id', videoController.deleteVideoById);
+
+router.patch('/:id', videoController.updateVideoById);
 
 module.exports = router;
