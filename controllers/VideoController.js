@@ -1,38 +1,33 @@
 const mongoose = require('mongoose');
-const UserService = require('../services/UserService');
+const {format} = require('util');
+
+const VideoService = require('../services/VideoService');
 const Video = require('../models/Video');
 const videoDb = mongoose.model('Video');
 
+
+
 class VideoController {
-
-    static async getVideosById(req, res) {
-        let userId = req.body.id;
-        try {
-            let videoData = await videoDb.find({"userId":userId});
-            return res.status(200).json({
-                data: videoData,
-                message: 'Success getting users by id'
-            });
-        } catch (e) {
-            console.log(e);
-        }
-    }
-
     static async uploadVideo(req, res) {
         try {
             const videoUri = req.body.videoURI;
-            const userId = req.body.userId;
-
-            
+            if (!videoUri) {
+                return res.status(400).json({message: 'no file uploaded'})
+            }
+            let publicUrl = VideoService.uploadVideoOnCloud(videoUri);
+            let videoParams = {
+                userId: req.body.userId,
+                status: "new",
+                videoLink: publicUrl
+            };
+            let newVideo = await VideoService.addVideoToDb(videoParams);
             return res.status(200).json({
-                data: user,
-                message: 'Success updating user by id'
+                data: newVideo,
+                message: 'Success creating new video data'
             });
         } catch (e) {
             console.log(e);
         }
     }
-
 }
-
 module.exports = VideoController;
