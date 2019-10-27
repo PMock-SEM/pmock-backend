@@ -63,13 +63,10 @@ class UserService {
 
   static async getVideosByUserId(id) {
     try {
-      const query = await User.findById(id).populate('videos');
-      query.exec((err, user) => {
-        return {
-          user,
-          videos: user.videos
-        }
+      let videos = await User.findById(id).populate('videos').exec().then(user => {
+        return user.videos;
       });
+      return videos;
     } catch (exception) {
       throw Error('Error while getting videos by user id');
     }

@@ -4,6 +4,8 @@ const config = require('./config');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const mongoose = require('mongoose');
+const multer = require('multer');
+const upload = multer();
 const ObjectId = mongoose.Types.ObjectId;
 
 mongoose.connect(config.MONGO_CONNECTION);
@@ -18,15 +20,16 @@ db.on('error', (err) => {
   console.log(err);
 })
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var videoRouter = require('./routes/videos')
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
+const videoRouter = require('./routes/videos');
 
-var app = express();
+const app = express();
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
+app.use(upload.array());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(function (req, res, next) {
@@ -37,5 +40,6 @@ app.use(function (req, res, next) {
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/videos', videoRouter);
 
 module.exports = app;

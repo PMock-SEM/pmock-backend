@@ -32,7 +32,7 @@ UserSchema.virtual('videos', {
   localField: '_id',
   foreignField: 'userId',
   justOne: false
-})
+});
 
 UserSchema.pre('save', function (next) {
   let user = this;
