@@ -18,7 +18,8 @@ class VideoController {
             let videoParams = {
                 userId: req.body.userId,
                 status: "new",
-                videoLink: publicUrl
+                videoLink: publicUrl,
+                uploadDate:new Date()
             };
             let newVideo = await VideoService.addVideoToDb(videoParams);
             return res.status(200).json({

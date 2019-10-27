@@ -15,12 +15,12 @@ const VideoSchema = new mongoose.Schema({
         type:String,
         required: true
     },
-    timestamps: {
-        uploadDate: 'createdTime',
-        updatedAt: 'updatedTime'
+    uploadDate:{
+        type:Date,
+        required:true
     }
 });
 
 
-const User = mongoose.model('Video', VideoSchema, 'videos');
+const Video = mongoose.model('Video', VideoSchema, 'videos');
 module.exports = Video;
