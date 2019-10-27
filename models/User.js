@@ -7,15 +7,13 @@ const UserSchema = new mongoose.Schema({
   lastName: String,
   email: {
     type: String,
-    required: true,
     unique: true
   },
   password: {
     type: String,
-    requied: true
   },
   avatarLink: String,
-  linkedAcessToken: String
+  linkedinId: String
 }, {
   timestamps: {
     createdAt: 'createdTime',
