@@ -1,6 +1,23 @@
 const UserController = require('../controllers/UserController');
 const express = require('express');
+const passport = require('passport');
+
 const router = express.Router();
+
+router.get('/auth/linkedin', passport.authenticate('linkedin', { state: 'Default' }), function(req, res){});
+
+router.get('/auth/linkedin/callback', passport.authenticate('linkedin'), function(req, res){
+	res.redirect('/users');
+});
+
+router.get('/api/current_user', function(req, res){
+	res.send(req.user);
+});
+
+router.get('/auth/linkedin/logout', function(req, res){
+	req.logout();
+    res.redirect('/');
+});
 
 /* GET users listing. */
 router.get('/', UserController.getUsers);
