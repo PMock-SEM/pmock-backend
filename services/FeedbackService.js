@@ -28,6 +28,16 @@ class FeedbackService {
             throw Error('Error while getting feedback by id');
         }
     }
+
+
+    static async getFeedbackByVideoId(videoId) {
+        try {
+            let feedback = await Feedback.find({ videoId: videoId });
+            return feedback;
+        } catch (exception) {
+            throw Error('Error while getting feedback by videoId');
+        }
+    }
 }
 
 module.exports = FeedbackService;

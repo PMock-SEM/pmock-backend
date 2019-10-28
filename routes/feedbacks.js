@@ -9,4 +9,6 @@ router.get('/:id', FeedbackController.getFeedbackById);
 
 router.post('/', FeedbackController.giveFeedback);
 
+router.get('/:videoId', FeedbackController.getFeedbackByVideoId);
+
 module.exports = router;

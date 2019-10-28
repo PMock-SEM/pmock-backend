@@ -45,6 +45,19 @@ class FeedbackController {
             console.log(e);
         }
     }
+
+    static async getFeedbackByVideoId(req, res) {
+        const id = req.params.id;
+        try {
+            let feedback = await FeedbackService.getFeedbackByVideoId(id);
+            return res.status(200).json({
+                data: feedback,
+                message: 'Success getting feedback by VideoId'
+            });
+        } catch (e) {
+            console.log(e);
+        }
+    }
 }
 
 module.exports = FeedbackController;
