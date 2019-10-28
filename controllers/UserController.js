@@ -3,6 +3,28 @@ const UserService = require('../services/UserService');
 const User = require('../models/User');
 
 class UserController {
+  static async signIn(req, res, next) {
+    try {
+      const userParams = {
+        email: req.body.email,
+        password: req.body.password
+      };
+
+      const token = await UserService.authenticateUser(userParams);
+      if (!token) {
+        return res.status(401).json({
+          message: 'Email and password does not match'
+        });
+      }
+      return res.status(200).json({
+        token: token,
+        message: 'Success signing in user'
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
   static async signUp(req, res, next) {
     try {
       const userParams = {
@@ -73,6 +95,19 @@ class UserController {
       await UserService.removeUserById(id);
       return res.status(200).json({
         message: 'Success deleting user by id'
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  static async getVideosByUserId(req, res) {
+    const id = req.params.id;
+    try {
+      const videos = await UserService.getVideosByUserId(id);
+      return res.status(200).json({
+        data: videos,
+        message: 'Success getting videos by user id'
       });
     } catch (e) {
       console.log(e);
