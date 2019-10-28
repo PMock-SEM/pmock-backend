@@ -72,7 +72,7 @@ class VideoService {
     blobStream.on('finish', () => {
       const publicUrl = format(`https://storage.googleapis.com/${bucket.name}/${blob.name}`);
       console.log(publicUrl);
-      return publicUrl
+      return publicUrl;
     });
     blobStream.end(videoURI.buffer);
   }
