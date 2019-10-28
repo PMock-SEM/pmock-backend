@@ -9,8 +9,11 @@
     "@google-cloud/storage": "^3.4.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
     "cookie-parser": "~1.4.4",
     "cookie-session": "^1.3.3",
+    "cookies": "^0.8.0",
     "debug": "~2.6.9",
     "express": "~4.16.1",
     "joi": "^14.3.1",
@@ -26,7 +29,9 @@
     "passport-linkedin-oauth2": "^2.0.0"
   },
   "main": "app.js",
-  "devDependencies": {},
+  "devDependencies": {
+    "mocha": "^6.2.2"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/PMock-SEM/pmock-backend.git"
