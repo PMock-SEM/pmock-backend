@@ -51,7 +51,6 @@ app.use(function (req, res, next) {
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/videos', videoRouter);
-
-
+app.use('/feedbacks', feedbacksRouter);
 
 module.exports = app;
