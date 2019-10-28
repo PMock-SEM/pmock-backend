@@ -16,7 +16,7 @@ router.get('/api/current_user', function(req, res){
 
 router.get('/auth/linkedin/logout', function(req, res){
 	req.logout();
-    res.redirect('/');
+    res.redirect('/login');
 });
 
 /* GET users listing. */

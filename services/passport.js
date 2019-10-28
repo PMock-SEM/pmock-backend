@@ -23,7 +23,6 @@ passport.use(new LinkedInStrategy({
   callbackURL: "/users/auth/linkedin/callback",
   scope: ['r_emailaddress','r_liteprofile'],
 }, function(accessToken, refreshToken, profile, done) {
-
 	User.findOne({ linkedinId : profile.id })
 	.then( (existingUser)=> {
 		if (existingUser) {
@@ -31,7 +30,10 @@ passport.use(new LinkedInStrategy({
 			done(null, existingUser);
 		} else {
 			// new user
-			new User({linkedinId : profile.id})
+			new User({linkedinId : profile.id, firstName:profile.name.givenName ,
+  lastName: profile.name.familyName,
+  email: profile.emails[0].value,
+  avatarLink: profile.photos[0].value})
 			.save()
 			.then( user => done(null,user));
 		}
