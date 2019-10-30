@@ -23,15 +23,16 @@ const db = mongoose.connection;
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
-const videoRouter = require('./routes/videos');
+const videosRouter = require('./routes/videos');
+const feedbacksRouter = require('./routes/feedbacks');
 
 const app = express();
 
 app.use(
-	cookieSession({
-		maxAge: 30 * 24 * 60 * 60 * 1000,
-		keys: [config.cookieKey]
-	})
+  cookieSession({
+    maxAge: 30 * 24 * 60 * 60 * 1000,
+    keys: [config.cookieKey]
+  })
 );
 app.use(passport.initialize());
 app.use(passport.session());
@@ -50,7 +51,7 @@ app.use(function (req, res, next) {
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/videos', videoRouter);
+app.use('/videos', videosRouter);
 app.use('/feedbacks', feedbacksRouter);
 
 module.exports = app;
