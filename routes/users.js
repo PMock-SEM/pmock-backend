@@ -4,19 +4,19 @@ const passport = require('passport');
 
 const router = express.Router();
 
-router.get('/auth/linkedin', passport.authenticate('linkedin', { state: 'Default' }), function(req, res){});
+router.get('/auth/linkedin', passport.authenticate('linkedin', { state: 'Default' }), function (req, res) { });
 
-router.get('/auth/linkedin/callback', passport.authenticate('linkedin'), function(req, res){
-	res.redirect('/users');
+router.get('/auth/linkedin/callback', passport.authenticate('linkedin'), function (req, res) {
+  res.redirect('/users');
 });
 
-router.get('/api/current_user', function(req, res){
-	res.send(req.user);
+router.get('/api/current_user', function (req, res) {
+  res.send(req.user);
 });
 
-router.get('/auth/linkedin/logout', function(req, res){
-	req.logout();
-    res.redirect('/login');
+router.get('/auth/linkedin/logout', function (req, res) {
+  req.logout();
+  res.redirect('/login');
 });
 
 /* GET users listing. */

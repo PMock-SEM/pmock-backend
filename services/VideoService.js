@@ -21,7 +21,6 @@ class VideoService {
       const video = await new Video(videoParams).save();
       return video;
     } catch (exception) {
-      console.log(exception);
       throw Error('Error while adding video');
     }
   }
@@ -41,6 +40,17 @@ class VideoService {
       return video;
     } catch (exception) {
       throw Error('Error while updating video');
+    }
+  }
+
+  static async getFeedbacksByVideoId(id) {
+    try {
+      let feedbacks = await Video.findById(id).populate('feedbacks').exec().then(video => {
+        return video.feedbacks;
+      });
+      return feedbacks;
+    } catch (exception) {
+      throw Error('Error while getting feedbacks by video id');
     }
   }
 
@@ -71,7 +81,6 @@ class VideoService {
     });
     blobStream.on('finish', () => {
       const publicUrl = format(`https://storage.googleapis.com/${bucket.name}/${blob.name}`);
-      console.log(publicUrl);
       return publicUrl;
     });
     blobStream.end(videoURI.buffer);

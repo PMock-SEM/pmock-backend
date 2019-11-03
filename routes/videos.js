@@ -11,6 +11,8 @@ router.get('/:id', videoController.getVideoById);
 
 router.get('/', videoController.getVideos);
 
+router.get('/feedbacks', videoController.getFeedbacksbyVideoId);
+
 router.delete('/:id', videoController.deleteVideoById);
 
 router.patch('/:id', videoController.updateVideoById);
