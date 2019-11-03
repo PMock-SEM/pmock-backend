@@ -96,6 +96,20 @@ class VideoController {
       console.log(e);
     }
   }
+
+  static async getFeedbacksbyVideoId(req, res) {
+    const id = req.params.id;
+    try {
+      const feedbacks = await VideoService.getFeedbacksByVideoId(id);
+      return res.status(200).json({
+        data: feedbacks,
+        message: 'Success getting feedbacks by video id'
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
 }
 
 module.exports = VideoController;
