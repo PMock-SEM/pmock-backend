@@ -7,7 +7,7 @@ const router = express.Router();
 router.get('/auth/linkedin', passport.authenticate('linkedin', { state: 'Default' }), function (req, res) { });
 
 router.get('/auth/linkedin/callback', passport.authenticate('linkedin'), function (req, res) {
-  res.redirect('/users');
+  res.redirect(`/users/${req.user._id}`);
 });
 
 router.get('/api/current_user', function (req, res) {
