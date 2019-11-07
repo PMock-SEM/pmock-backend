@@ -64,7 +64,10 @@ class UserService {
   static async getVideosByUserId(id) {
     try {
       let videos = await User.findById(id).populate('videos').exec().then(user => {
-        return user.videos;
+        return user.videos.map(video => ({
+          ...video.toObject(),
+          userName: user.firstName + ' ' + user.lastName
+        }));
       });
       return videos;
     } catch (exception) {
