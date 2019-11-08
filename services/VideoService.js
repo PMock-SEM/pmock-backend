@@ -50,6 +50,7 @@ class VideoService {
       });
       return feedbacks;
     } catch (exception) {
+      console.log(exception);
       throw Error('Error while getting feedbacks by video id');
     }
   }
