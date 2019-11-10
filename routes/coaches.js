@@ -4,14 +4,14 @@ const passport = require('passport');
 
 const router = express.Router();
 
-router.get('/auth/linkedin', passport.authenticate('linkedin', { state: 'Default' }), function (req, res) { });
+router.get('/auth/linkedin', passport.authenticate('coachLogin', { state: 'Default' }), function (req, res) { });
 
-router.get('/auth/linkedin/callback', passport.authenticate('linkedin'), function (req, res) {
-  res.redirect('/coaches');
+router.get('/auth/linkedin/callback', passport.authenticate('coachLogin'), function (req, res) {
+  res.redirect(`/coaches/${req.user._id}`);
 });
 
 router.get('/api/current_coach', function (req, res) {
-  res.send(req.coach);
+  res.send(req.user);
 });
 
 router.get('/auth/linkedin/logout', function (req, res) {

@@ -4,9 +4,9 @@ const passport = require('passport');
 
 const router = express.Router();
 
-router.get('/auth/linkedin', passport.authenticate('linkedin', { state: 'Default' }), function (req, res) { });
+router.get('/auth/linkedin', passport.authenticate('userLogin', { state: 'Default' }), function (req, res) { });
 
-router.get('/auth/linkedin/callback', passport.authenticate('linkedin'), function (req, res) {
+router.get('/auth/linkedin/callback', passport.authenticate('userLogin'), function (req, res) {
   res.redirect(`/users/${req.user._id}`);
 });
 
