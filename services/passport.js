@@ -5,16 +5,40 @@ const mongoose = require('mongoose');
 
 const User = mongoose.model('User');
 const Coach = mongoose.model('Coach');
-passport.serializeUser((user, done) => {
-	done(null, user.id);
+
+function SessionConstructor(userId, userGroup) {
+  this.userId = userId;
+  this.userGroup = userGroup;
+}
+
+
+passport.serializeUser((userObject, done) => {
+	var userGroup = "user";
+    var userPrototype =  Object.getPrototypeOf(userObject);
+
+    if (userPrototype === User.prototype) {
+      userGroup = "user";
+    } else if (userPrototype === Coach.prototype) {
+      userGroup = "coach";
+    }
+
+    let sessionConstructor = new SessionConstructor(userObject.id, userGroup);
+    done(null,sessionConstructor);
 });
 
-passport.deserializeUser((id, done) => {
-	User.findById(id)
-	.then(user => {
-		done(null, user);
-	});
+passport.deserializeUser((sessionConstructor, done) => {
 	
+	if (sessionConstructor.userGroup == 'user') {
+      User.findById(sessionConstructor.userId)
+		.then(user => {
+		done(null, user);
+		});
+    } else if (sessionConstructor.userGroup == 'coach') {
+      Coach.findById(sessionConstructor.userId)
+		.then(user => {
+			done(null, user);
+		});	
+    } 	
 });
 
 passport.use('userLogin',new LinkedInStrategy({
