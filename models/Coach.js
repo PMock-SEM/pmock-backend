@@ -5,22 +5,15 @@ const SALT_FACTOR = 10;
 const CoachSchema = new mongoose.Schema({
   coachEmail: {
     type: String,
-    required: true,
-    unique: true,
-    validate: {
-      validator: (val) => {
-        let pattern = /^\S+@\S+$/
-        return pattern.test(val)
-      },
-      message: '{VALUE} is not a valid email'
-    }
+    unique: true
   },
   password: String,
   coachFirstName: String,
   coachLastName: String,
   avatarLink: String,
-  linkedAccessToken: String,
+  linkedinId: String,
   rating: Number,
+  type: String
 }, {
   timestamps: {
     createdAt: 'createdTime',

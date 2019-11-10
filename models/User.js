@@ -13,7 +13,8 @@ const UserSchema = new mongoose.Schema({
     type: String,
   },
   avatarLink: String,
-  linkedinId: String
+  linkedinId: String,
+  type: String
 }, {
   timestamps: {
     createdAt: 'createdTime',
