@@ -57,7 +57,7 @@ passport.use('userLogin',new LinkedInStrategy({
 			new User({linkedinId : profile.id, firstName:profile.name.givenName ,
   lastName: profile.name.familyName,
   email: profile.emails[0].value,
-  avatarLink: profile.photos[0].value})
+  avatarLink: profile.photos[0].value,type:"User"})
 			.save()
 			.then( user => done(null,user));
 		}
@@ -81,7 +81,7 @@ passport.use('coachLogin',new LinkedInStrategy({
 			new Coach({linkedinId : profile.id, coachFirstName:profile.name.givenName ,
   coachLastName: profile.name.familyName,
   coachEmail: profile.emails[0].value,
-  avatarLink: profile.photos[0].value})
+  avatarLink: profile.photos[0].value,type:"Coach"})
 			.save()
 			.then( coach => done(null,coach));
 		}
