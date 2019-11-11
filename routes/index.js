@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const User = require('../models/User');
 const Feedback = require('../models/Feedback');
 const Video = require('../models/Video');
+const Coach = require('../models/Coach');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
