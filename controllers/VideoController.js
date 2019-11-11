@@ -1,16 +1,28 @@
 const VideoService = require('../services/VideoService');
+const { format } = require('util');
 
 class VideoController {
   static async uploadVideoToGCP(req, res) {
     try {
-            console.log('logging video');
 
+      console.log('logging video');
       console.log(req.body.videoName);
       console.log(req.file);
       console.log(req.body.userId);
-      const videoUrl = VideoService.uploadVideoOnCloud(req.body.videoName, req.file, req.body.userId);
+      let videoUrl = await VideoService.uploadVideoOnCloud(req.body.videoName, req.file, req.body.userId);
+      videoUrl = format(`https://storage.googleapis.com/pmock/${req.file.originalname}`);
+
+      console.log(videoUrl);
+
+      // add video in the database
+      const videoParams = {
+        userId: req.body.userId,
+        videoUrl: videoUrl,
+        videoName: req.body.videoName
+      };
+      let newVideo = await VideoService.addVideo(videoParams);
       return res.status(200).json({
-        data: videoUrl,
+        data: newVideo,
         message: 'OK'
       });
     } catch (e) {
