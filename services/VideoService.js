@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const Video = mongoose.model('Video');
 const config = require('../config');
-const Multer = require('multer');
 const bodyParser = require('body-parser');
 const { Storage } = require('@google-cloud/storage');
 const { format } = require('util');
@@ -63,19 +62,13 @@ class VideoService {
     }
   }
 
-  static async uploadVideoOnCloud(videoURI) {
+  static async uploadVideoOnCloud(videoName, file, userId) {
     const storage = new Storage();
-    // Multer is required to process file uploads and make them available via req.files.
-    const multerFunc = Multer({
-      storage: Multer.memoryStorage(),
-      limits: {
-        fileSize: 100 * 1024 * 1024, // no larger than 100MB, you can change as needed.
-      }
-    });
     const bucket = storage.bucket("pmock");
-    multerFunc.single(videoURI);
+
+
     // Create a new blob in the bucket and upload the file data.
-    const blob = bucket.file(videoURI);
+    const blob = bucket.file(file.originalname);
     const blobStream = blob.createWriteStream();
     blobStream.on('error', err => {
       next(err);
@@ -84,7 +77,7 @@ class VideoService {
       const publicUrl = format(`https://storage.googleapis.com/${bucket.name}/${blob.name}`);
       return publicUrl;
     });
-    blobStream.end(videoURI.buffer);
+    blobStream.end(file.buffer);
   }
 }
 

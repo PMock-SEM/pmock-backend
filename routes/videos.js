@@ -1,11 +1,21 @@
 const videoController = require('../controllers/VideoController');
 const express = require('express');
 const router = express.Router();
-const multer = require('multer');
+const Multer = require('multer');
+
+// Multer is required to process file uploads and make them available via
+// req.files.
+const multer = Multer({
+  storage: Multer.memoryStorage(),
+  limits: {
+    fileSize: 100 * 1024 * 1024, // no larger than 5mb, you can change as needed.
+  },
+});
+
 
 router.post('/', videoController.addVideo);
 
-router.post('/upload', videoController.uploadVideoToGCP);
+router.post('/upload', multer.single('file'), videoController.uploadVideoToGCP);
 
 router.get('/:id', videoController.getVideoById);
 

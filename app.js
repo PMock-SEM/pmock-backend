@@ -4,12 +4,10 @@ const config = require('./config');
 var cookieParser = require('cookie-parser');
 const cookieSession = require('cookie-session');
 const passport = require('passport');
+const bodyParser = require('body-parser');
 
 var logger = require('morgan');
 const mongoose = require('mongoose');
-
-const multer = require('multer');
-const upload = multer();
 
 require('./models/User');
 require('./models/Coach');
@@ -40,11 +38,10 @@ app.use(
 );
 app.use(passport.initialize());
 app.use(passport.session());
-
+app.use(bodyParser.json());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(upload.array());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(function (req, res, next) {

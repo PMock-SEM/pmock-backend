@@ -1,11 +1,14 @@
 const VideoService = require('../services/VideoService');
-const multer = require('multer');
 
 class VideoController {
   static async uploadVideoToGCP(req, res) {
     try {
+            console.log('logging video');
+
+      console.log(req.body.videoName);
       console.log(req.file);
-      const videoUrl = VideoService.uploadVideoOnCloud(req.file);
+      console.log(req.body.userId);
+      const videoUrl = VideoService.uploadVideoOnCloud(req.body.videoName, req.file, req.body.userId);
       return res.status(200).json({
         data: videoUrl,
         message: 'OK'
